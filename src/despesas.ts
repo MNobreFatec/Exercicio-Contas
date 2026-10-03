@@ -1,26 +1,33 @@
 import { Despesa, Categoria } from './tipos';
 
-// Retorna um novo array com a nova despesa (lança erro se valor <= 0 ou mês fora de 1..12)
+// Retorna um novo array com a nova despesa
 export function adicionarDespesa(despesas: Despesa[], nova: Despesa): Despesa[] {
-  throw new Error('não implementado');
+  if (nova.valor <= 0) {
+    throw new Error('O valor da despesa deve ser maior que zero.');
+  }
+  if (nova.mes < 1 || nova.mes > 12) {
+    throw new Error('O mês deve estar entre 1 e 12.');
+  }
+  return [...despesas, nova];
 }
 
-// Retorna um novo array sem a despesa do ID informado (cópia igual se ID não existir)
+// Retorna um novo array sem a despesa do ID informado
 export function removerDespesa(despesas: Despesa[], id: number | string): Despesa[] {
-  throw new Error('não implementado');
+  return despesas.filter((d) => d.id !== id);
 }
 
 // Retorna apenas as despesas da categoria solicitada
 export function despesasDaCategoria(despesas: Despesa[], categoria: Categoria): Despesa[] {
-  throw new Error('não implementado');
+  return despesas.filter((d) => d.categoria === categoria);
 }
 
-// Retorna a soma de todos os valores (retorna 0 para lista vazia)
+// Retorna a soma de todos os valores das despesas
 export function totalGasto(despesas: Despesa[]): number {
-  throw new Error('não implementado');
+  return despesas.reduce((acc, d) => acc + d.valor, 0);
 }
 
-// Retorna a despesa de maior valor (retorna undefined para lista vazia)
+// Retorna a despesa de maior valor (ou undefined para lista vazia)
 export function maiorDespesa(despesas: Despesa[]): Despesa | undefined {
-  throw new Error('não implementado');
+  if (despesas.length === 0) return undefined;
+  return despesas.reduce((maior, d) => (d.valor > maior.valor ? d : maior));
 }
